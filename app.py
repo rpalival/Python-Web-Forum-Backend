@@ -49,7 +49,21 @@ def read_post(post_id):
     return jsonify({'id': post_id, 'timestamp': post['timestamp'], 'msg': post['msg']}), 200
 
 # Endpoint 3
-#@app.route('/post/<int:post_id>/delete/<string:key>', methods=['DELETE'])
+@app.route('/post/<int:post_id>/delete/<key>', methods=['DELETE'])
+def delete_post(post_id, key):
+    # Check if the post exists
+    if post_id not in posts:
+        return jsonify({'err': 'Post not found'}), 404
+
+    post = posts[post_id]
+
+    # Check if the key matches
+    if post['key'] != key:
+        return jsonify({'err': 'Forbidden'}), 403
+
+    del posts[post_id]
+
+    return jsonify({'id': post_id, 'key': key, 'timestamp': post['timestamp']}), 200
 
 
 
