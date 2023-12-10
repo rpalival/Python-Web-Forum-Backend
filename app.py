@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-import secrets
+import secrets 
 from datetime import datetime
 
 app = Flask(__name__)
@@ -8,6 +8,7 @@ app = Flask(__name__)
 posts = {}
 post_counter = 0
 
+# Endpoint 1
 # Endpoint to create a post
 @app.route('/post', methods=['POST'])
 def create_post():
@@ -15,24 +16,42 @@ def create_post():
     try:
         # Parse and validate the JSON request
         data = request.get_json()
-        if not data or 'msg' not in data or not isinstance(data['msg'], str):
-            return jsonify({'err': 'Bad request'}), 400
+    except Exception:
+        return jsonify({'err': 'Invalid JSON format'}), 400
+    
+    if 'msg' not in data:
+        return jsonify({'err': 'Missing \'msg\' field'}), 400
 
-        # Create a new post
-        post_id = post_counter
-        post_counter += 1
-        key = secrets.token_urlsafe(16)  # Generate a secure random key
-        timestamp = datetime.utcnow().isoformat()  # ISO 8601 timestamp in UTC
+    # Check if 'msg' field is not a string
+    if not isinstance(data['msg'], str):
+        return jsonify({'err': '\'msg\' must be a string'}), 400
 
-        # Store the post
-        posts[post_id] = {'id': post_id, 'key': key, 'timestamp': timestamp, 'msg': data['msg']}
+    # Create a new post
+    post_id = post_counter
+    post_counter += 1
+    key = secrets.token_urlsafe(16)  # Generate a secure random key
+    timestamp = datetime.utcnow().isoformat()  # ISO 8601 timestamp in UTC
 
-        # Return the post data
-        return jsonify({'id': post_id, 'key': key, 'timestamp': timestamp}), 201
+    # Store the post
+    posts[post_id] = {'id': post_id, 'key': key, 'timestamp': timestamp, 'msg': data['msg']}
 
-    except Exception as e:
-        # Handle unexpected errors
-        return jsonify({'err': f'Unexpected error: {str(e)}'}), 500
+    # Return the post data
+    return jsonify({'id': post_id, 'key': key, 'timestamp': timestamp}), 200
+
+#Endpoint 2
+@app.route('/post/<int:post_id>', methods=['GET'])
+def read_post(post_id):
+    # Check if the post exists
+    if post_id not in posts:
+        return jsonify({'err': 'Post not found'}), 404
+
+    post = posts[post_id]
+    return jsonify({'id': post_id, 'timestamp': post['timestamp'], 'msg': post['msg']}), 200
+
+# Endpoint 3
+#@app.route('/post/<int:post_id>/delete/<string:key>', methods=['DELETE'])
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
