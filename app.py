@@ -3,8 +3,6 @@ import secrets
 from datetime import datetime
 from threading import Lock
 
-
-
 app = Flask(__name__)
 state_lock = Lock()
 # In-memory storage for posts
