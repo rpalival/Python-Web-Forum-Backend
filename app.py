@@ -19,14 +19,14 @@ def create_post():
             # Parse and validate the JSON request
             data = request.get_json()
         except Exception:
-            return jsonify({'err': 'Invalid JSON format'}), 400
+            return {'err': 'Invalid JSON format'}, 400
         
         if 'msg' not in data:
-            return jsonify({'err': 'Missing \'msg\' field'}), 400
+            return {'err': 'Missing \'msg\' field'}, 400
 
         # Check if 'msg' field is not a string
         if not isinstance(data['msg'], str):
-            return jsonify({'err': '\'msg\' must be a string'}), 400
+            return {'err': '\'msg\' must be a string'}, 400
 
         # Create a new post
         post_id = post_counter
@@ -38,7 +38,7 @@ def create_post():
         posts[post_id] = {'id': post_id, 'key': key, 'timestamp': timestamp, 'msg': data['msg']}
 
     # Return the post data
-    return jsonify({'id': post_id, 'key': key, 'timestamp': timestamp}), 200
+    return {'id': post_id, 'key': key, 'timestamp': timestamp}, 200
 
 #Endpoint 2
 @app.route('/post/<int:post_id>', methods=['GET'])
