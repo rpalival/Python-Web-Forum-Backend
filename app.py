@@ -179,5 +179,30 @@ def get_posts_by_range():
                 })
     return filtered_posts, 200
 
+# Endpoint 8: for All Posts of a given User (Extension 5)
+@app.get("/posts/user/<int:user_id>")
+def get_posts_by_user(user_id):
+    with state_lock:
+        # Check if the user exists
+        if user_id not in users:
+            return {'err': 'User not found'}, 404
+
+        # Filter posts by the given user ID
+        user_posts = [
+            {
+                'id': post_id,
+                'timestamp': post['timestamp'],
+                'msg': post['msg'],
+                'user_id': post.get('user_id'),
+                'username': users[user_id]['username'],
+                'replying_to_id': post.get('replying_to_id'),
+                'ids_of_replies': post.get('ids_of_replies', [])
+            }
+            for post_id, post in posts.items() if post.get('user_id') == user_id
+        ]
+
+    return user_posts, 200
+
+
 if __name__ == '__main__':
     app.run(debug=True)
