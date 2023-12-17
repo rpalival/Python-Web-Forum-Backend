@@ -25,6 +25,10 @@ def create_post():
         
         user_id = data.get('user_id')
         user_key = data.get('user_key')
+        replying_to_id = data.get('replying_to_id')
+        
+        if replying_to_id is not None and replying_to_id not in posts:
+            return {'err': 'Reply to non-existent post'}, 404
         
         if 'msg' not in data:
             return {'err': 'Missing \'msg\' field'}, 400
@@ -46,8 +50,12 @@ def create_post():
             'timestamp': timestamp, 
             'msg': data['msg'], 
             'user_id': user_id,
-            'user_key':user_key
+            'user_key':user_key,
+            'replying_to_id':replying_to_id
         }
+
+    if replying_to_id is not None:
+            posts[replying_to_id].setdefault('ids_of_replies', []).append(post_id)
 
     # Return the post data
     return {'id': post_id, 'key': key, 'timestamp': timestamp}, 200
@@ -67,7 +75,9 @@ def read_post(id):
         'timestamp': post['timestamp'], 
         'msg': post['msg'],
         'user_id': post.get('user_id'),
-        'username': user.get('username') if user else None
+        'username': user.get('username') if user else None,
+        'replying_to_id': post.get('replying_to_id'),
+        'ids_of_replies': post.get('ids_of_replies', [])
     }, 200
 
 # Endpoint 3
@@ -141,7 +151,7 @@ def edit_user_metadata(user_id):
     users[user_id]['real_name'] = new_real_name
     return {'msg': 'User metadata updated'}, 200
 
-# Endpoint 6: for Date- and Time-based Range Queries  
+# Endpoint 7: for Date- and Time-based Range Queries  
 @app.get("/posts/range")
 def get_posts_by_range():
     start = request.args.get('start')
@@ -163,7 +173,9 @@ def get_posts_by_range():
                     'timestamp': post['timestamp'],
                     'msg': post['msg'],
                     'user_id': post.get('user_id'),
-                    'username': users.get('username')
+                    'username': users.get('username'),
+                    'replying_to_id': post.get('replying_to_id'),
+                    'ids_of_replies': post.get('ids_of_replies', [])
                 })
     return filtered_posts, 200
 
