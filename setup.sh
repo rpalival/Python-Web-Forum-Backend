@@ -1,2 +1,3 @@
 #!/bin/sh
-pip3 install -g newman
+npm install -g npm
+npm install -g newman
