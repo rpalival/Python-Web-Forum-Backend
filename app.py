@@ -11,7 +11,7 @@ users = {}
 posts = {}
 
 # Endpoint 1
-# Endpoint to create a post
+# Endpoint to create a post and Extension 3: Post as a Reply
 @app.post("/post")
 def create_post():
     with state_lock:
@@ -62,6 +62,7 @@ def create_post():
     return {'id': post_id, 'key': key, 'timestamp': timestamp}, 200
 
 #Endpoint 2
+# Endpoint to get a post
 @app.get("/post/<int:id>")
 def read_post(id):
     with state_lock:
@@ -81,6 +82,7 @@ def read_post(id):
     }, 200
 
 # Endpoint 3
+# Endpoint to delete a post
 @app.route('/post/<int:post_id>/delete/<key>', methods=['DELETE'])
 def delete_post(post_id, key):
     with state_lock:
@@ -102,7 +104,8 @@ def delete_post(post_id, key):
 
     return {'id': post_id, 'key': key, 'timestamp': post['timestamp']}, 200
 
-# Endpoint 4: Extension 1:- Users and user keys
+# Endpoint 4: 
+# Extension 1:- Endpoint to create a user
 @app.route('/user', methods=['POST'])
 def create_user():
     data = request.get_json()
@@ -119,7 +122,8 @@ def create_user():
 
     return {'user_id': user_id, 'key': user_key}, 200
 
-# Endpoint 5: 
+# Endpoint 5:
+# Extension 1:- Endpoint to get a user 
 @app.route('/user/<identifier>', methods=['GET'])
 def get_user_metadata(identifier):
     user = None
@@ -139,6 +143,7 @@ def get_user_metadata(identifier):
     }, 200
 
 # Endpoint 6: 
+# Extension 2:- Endpoint to modify a user 
 @app.route('/user/<int:user_id>', methods=['PUT'])
 def edit_user_metadata(user_id):
     data = request.get_json()
@@ -151,7 +156,8 @@ def edit_user_metadata(user_id):
     users[user_id]['real_name'] = new_real_name
     return {'msg': 'User metadata updated'}, 200
 
-# Endpoint 7: for Date- and Time-based Range Queries  
+# Endpoint 7: 
+# Extension 4: Endpoint to get All Posts for Date and Time based Range Queries  
 @app.get("/posts/range")
 def get_posts_by_range():
     start = request.args.get('start')
@@ -179,7 +185,8 @@ def get_posts_by_range():
                 })
     return filtered_posts, 200
 
-# Endpoint 8: for All Posts of a given User (Extension 5)
+# Endpoint 8: 
+# Extension 5: Endpoint to get All Posts of a given User
 @app.get("/posts/user/<int:user_id>")
 def get_posts_by_user(user_id):
     with state_lock:
