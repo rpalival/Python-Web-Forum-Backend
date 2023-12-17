@@ -1,6 +1,8 @@
-# Nikhil Kumar G - nkumarg@stevens.edu
+# Group Submission - Team members:
 
-# Raj Palival - rpalival@stevens.edu
+## Nikhil Kumar G - nkumarg@stevens.edu
+
+## Raj Palival - rpalival@stevens.edu
 
 # GitHub Url:
 
@@ -8,7 +10,7 @@ https://github.com/rpalival/Python-Web-Forum-Backend
 
 # Estimate of how many hours you spent on the project
 
-We started the project early and spent around 2 weeks on it approximately working an 6 hours each per week. Since we are two of us in the team the combined total number of hours spent on this project are 24 hours approximately.
+We started the project early and spent around 2 weeks on it approximately working 6 hours each per week. Since we are two of us in the team the combined total number of hours spent on this project are 24 hours approximately.
 
 # Description of how we tested the code
 
