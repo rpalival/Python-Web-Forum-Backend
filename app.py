@@ -25,9 +25,6 @@ def create_post():
         
         user_id = data.get('user_id')
         user_key = data.get('user_key')
-
-        if user_id not in users or users[user_id]['key'] != user_key:
-            return {'err': 'Invalid user or key'}, 403
         
         if 'msg' not in data:
             return {'err': 'Missing \'msg\' field'}, 400
@@ -48,7 +45,8 @@ def create_post():
             'key': key, 
             'timestamp': timestamp, 
             'msg': data['msg'], 
-            'user_id': user_id
+            'user_id': user_id,
+            'user_key':user_key
         }
 
     # Return the post data
@@ -111,6 +109,7 @@ def create_user():
 
     return {'user_id': user_id, 'key': user_key}, 201
 
+# Endpoint 5: 
 @app.route('/user/<identifier>', methods=['GET'])
 def get_user_metadata(identifier):
     user = None
@@ -129,6 +128,7 @@ def get_user_metadata(identifier):
         'real_name': user['real_name'] 
     }, 200
 
+# Endpoint 6: 
 @app.route('/user/<int:user_id>', methods=['PUT'])
 def edit_user_metadata(user_id):
     data = request.get_json()
@@ -141,7 +141,7 @@ def edit_user_metadata(user_id):
     users[user_id]['real_name'] = new_real_name
     return {'msg': 'User metadata updated'}, 200
 
-# New Endpoint for Date- and Time-based Range Queries
+# Endpoint 6: for Date- and Time-based Range Queries  
 @app.get("/posts/range")
 def get_posts_by_range():
     start = request.args.get('start')
@@ -156,12 +156,15 @@ def get_posts_by_range():
         for post_id, post in posts.items():
             post_dt = datetime.fromisoformat(post['timestamp'])
             if (not start_dt or post_dt >= start_dt) and (not end_dt or post_dt <= end_dt):
+                # Fetch user data
+                user_data = users.get(post['user_id'], {})
                 filtered_posts.append({
                     'id': post_id,
                     'timestamp': post['timestamp'],
-                    'msg': post['msg']
+                    'msg': post['msg'],
+                    'user_id': post.get('user_id'),
+                    'username': users.get('username')
                 })
-
     return filtered_posts, 200
 
 if __name__ == '__main__':
