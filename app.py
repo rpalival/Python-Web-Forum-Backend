@@ -11,7 +11,7 @@ post_counter = 0
 
 # Endpoint 1
 # Endpoint to create a post
-@app.route('/post', methods=['POST'])
+@app.post("/post")
 def create_post():
     global post_counter
     with state_lock:
@@ -41,15 +41,15 @@ def create_post():
     return {'id': post_id, 'key': key, 'timestamp': timestamp}, 200
 
 #Endpoint 2
-@app.route('/post/<int:post_id>', methods=['GET'])
-def read_post(post_id):
+@app.get("/post/<int:id>")
+def read_post(id):
     with state_lock:
         # Check if the post exists
-        if post_id not in posts:
-            return jsonify({'err': 'Post not found'}), 404
-
-        post = posts[post_id]
-    return jsonify({'id': post_id, 'timestamp': post['timestamp'], 'msg': post['msg']}), 200
+        if id not in posts:
+            error_message = f'Post with ID {id} not found'
+            return {'err': error_message}, 404
+        post = posts[id]
+    return {'id': id, 'timestamp': post['timestamp'], 'msg': post['msg']}, 200
 
 # Endpoint 3
 @app.route('/post/<int:post_id>/delete/<key>', methods=['DELETE'])
@@ -57,17 +57,17 @@ def delete_post(post_id, key):
     with state_lock:
         # Check if the post exists
         if post_id not in posts:
-            return jsonify({'err': 'Post not found'}), 404
+            return {'err': 'Post not found'}, 404
 
         post = posts[post_id]
 
         # Check if the key matches
         if post['key'] != key:
-            return jsonify({'err': 'Forbidden'}), 403
+            return {'err': 'Forbidden'}, 403
 
         del posts[post_id]
 
-    return jsonify({'id': post_id, 'key': key, 'timestamp': post['timestamp']}), 200
+    return {'id': post_id, 'key': key, 'timestamp': post['timestamp']}, 200
 
 
 
