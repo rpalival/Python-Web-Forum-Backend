@@ -69,7 +69,28 @@ def delete_post(post_id, key):
 
     return {'id': post_id, 'key': key, 'timestamp': post['timestamp']}, 200
 
+# New Endpoint for Date- and Time-based Range Queries
+@app.get("/posts/range")
+def get_posts_by_range():
+    start = request.args.get('start')
+    end = request.args.get('end')
+    
+    # Convert string to datetime objects
+    start_dt = datetime.fromisoformat(start) if start else None
+    end_dt = datetime.fromisoformat(end) if end else None
 
+    filtered_posts = []
+    with state_lock:
+        for post_id, post in posts.items():
+            post_dt = datetime.fromisoformat(post['timestamp'])
+            if (not start_dt or post_dt >= start_dt) and (not end_dt or post_dt <= end_dt):
+                filtered_posts.append({
+                    'id': post_id,
+                    'timestamp': post['timestamp'],
+                    'msg': post['msg']
+                })
+
+    return filtered_posts, 200
 
 if __name__ == '__main__':
     app.run(debug=True)
