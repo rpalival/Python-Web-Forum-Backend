@@ -23,6 +23,9 @@ def create_post():
         
         user_id = data.get('user_id')
         user_key = data.get('user_key')
+        if(user_id!=None):
+            username = users.get(user_id,None).get('username',None)
+
         replying_to_id = data.get('replying_to_id')
         
         if replying_to_id is not None and replying_to_id not in posts:
@@ -47,6 +50,7 @@ def create_post():
             'timestamp': timestamp, 
             'msg': data['msg'], 
             'user_id': user_id,
+            'username':username if(user_id!=None)else None,
             'user_key':user_key,
             'replying_to_id':replying_to_id
         }
@@ -63,8 +67,7 @@ def read_post(id):
     with state_lock:
         # Check if the post exists
         if id not in posts:
-            error_message = f'Post with ID {id} not found'
-            return {'err': error_message}, 404
+            return {'err': "Post not found"}, 404
         post = posts[id]
         user = users.get(post.get('user_id'))
     return {
@@ -170,7 +173,7 @@ def get_posts_by_range():
                     'timestamp': post['timestamp'],
                     'msg': post['msg'],
                     'user_id': post.get('user_id'),
-                    'username': users.get('username'),
+                    'username': user_data.get('username'),
                     'replying_to_id': post.get('replying_to_id'),
                     'ids_of_replies': post.get('ids_of_replies', [])
                 })
