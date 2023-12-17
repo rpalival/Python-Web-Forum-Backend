@@ -1,6 +1,8 @@
-# Nikhil Kumar G - nkumarg@stevens.edu
+# Group Submission - Team members:
 
-# Raj Palival - rpalival@stevens.edu
+## Nikhil Kumar G - nkumarg@stevens.edu
+
+## Raj Palival - rpalival@stevens.edu
 
 # GitHub Url:
 
