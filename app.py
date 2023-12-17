@@ -9,13 +9,11 @@ state_lock = Lock()
 # In-memory storage for posts
 users = {}
 posts = {}
-post_counter = 0
 
 # Endpoint 1
 # Endpoint to create a post
 @app.post("/post")
 def create_post():
-    global post_counter
     with state_lock:
         try:
             # Parse and validate the JSON request
@@ -38,8 +36,7 @@ def create_post():
             return {'err': '\'msg\' must be a string'}, 400
 
         # Create a new post
-        post_id = post_counter
-        post_counter += 1
+        post_id = len(posts) + 1
         key = secrets.token_urlsafe(16)  # Generate a secure random key
         timestamp = datetime.utcnow().isoformat()  # ISO 8601 timestamp in UTC
 
