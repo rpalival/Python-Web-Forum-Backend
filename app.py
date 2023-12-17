@@ -117,7 +117,7 @@ def create_user():
 
     users[user_id] = {'user_id': user_id, 'key': user_key, 'username': username, 'real_name': real_name}
 
-    return {'user_id': user_id, 'key': user_key}, 201
+    return {'user_id': user_id, 'key': user_key}, 200
 
 # Endpoint 5: 
 @app.route('/user/<identifier>', methods=['GET'])
