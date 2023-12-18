@@ -12,6 +12,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 nvm install node  # Install the latest version of Node.js and npm
+npm install -g newman # Install newman
 
 newman run forum_multiple_posts.postman_collection.json -e env.json # use the env file
 newman run forum_post_read_delete.postman_collection.json -n 50 # 50 iterations
