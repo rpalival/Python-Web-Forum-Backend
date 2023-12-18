@@ -93,11 +93,7 @@ def delete_post(post_id, key):
         post = posts[post_id]
         user_id = post.get('user_id')
 
-        if key != post['key'] and (not user_id or key != users[user_id]['key']):
-            return {'err': 'Forbidden'}, 403
-
-        # Check if the key matches
-        if post['key'] != key:
+        if key != post['key'] and (user_id is None or key != users[user_id].get('key', '')):
             return {'err': 'Forbidden'}, 403
 
         del posts[post_id]
