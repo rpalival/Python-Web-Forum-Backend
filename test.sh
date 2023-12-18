@@ -5,7 +5,8 @@ trap 'kill $PID' EXIT # kill the server on exit
 
 ./run.sh &
 PID=$! # record the PID
-
+npm cache clean --force
+npm uninstall -g newman
 npm install -g newman@5
 
 newman run forum_multiple_posts.postman_collection.json -e env.json # use the env file
