@@ -14,5 +14,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 nvm install node  # Install the latest version of Node.js and npm
 npm install -g newman # Install newman
 
-newman run forum_multiple_posts.postman_collection.json -e env.json # use the env file
-newman run forum_post_read_delete.postman_collection.json -n 50 # 50 iterations
+# newman run forum_multiple_posts.postman_collection.json -e env.json # use the env file
+# newman run forum_post_read_delete.postman_collection.json -n 50 # 50 iterations
+newman run Baseline_Extensions.postman_collection.json -e Web_Forum.json # use the env file
