@@ -1,3 +1,2 @@
 #!/bin/sh
-
-sudo npm install -g newman
+pip3 install Flask

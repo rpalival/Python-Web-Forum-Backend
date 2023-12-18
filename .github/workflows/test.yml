@@ -39,4 +39,3 @@ jobs:
         run: ./setup.sh
       - name: Run test script
         run: ./test.sh
-
