@@ -7,5 +7,5 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 nvm install node  # Install the latest version of Node.js and npm
 
-npm install -g newman # Install the latest version of newman
+# npm install -g newman # Install the latest version of newman
 
