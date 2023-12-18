@@ -1,2 +1,2 @@
 #!/bin/sh
-sudo npm install -g newman
+npm install -g newman
