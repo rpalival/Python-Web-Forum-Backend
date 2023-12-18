@@ -115,15 +115,16 @@ Lets dive deep into each extension:
     The endpoint takes post's id as parameter and returns posts' info along with user's info (user_id and username).
 
     Sample Response:
-    {
-    "id": 1,
-    "ids_of_replies": [],
-    "msg": "Hello, World!",
-    "replying_to_id": null,
-    "timestamp": "2023-12-18T03:35:33.741230",
-    "user_id": 1,
-    "username": "johndoe69"
-    }
+
+        {
+        "id": 1,
+        "ids_of_replies": [],
+        "msg": "Hello, World!",
+        "replying_to_id": null,
+        "timestamp": "2023-12-18T03:35:33.741230",
+        "user_id": 1,
+        "username": "johndoe69"
+        }
 
     4. Modified Endpoint: Delete /post/<int:post_id>/delete/<key>
 
@@ -190,15 +191,16 @@ Lets dive deep into each extension:
     This endpoint will now return the post with user's unique metadate: username by giving post_id in url.
 
     Sample Response:
-    {
-    "id": 3,
-    "ids_of_replies": [],
-    "msg": "Hello, World!",
-    "replying_to_id": null,
-    "timestamp": "2023-12-18T04:08:01.993390",
-    "user_id": 1,
-    "username": "johndoe69"
-    }
+
+        {
+        "id": 3,
+        "ids_of_replies": [],
+        "msg": "Hello, World!",
+        "replying_to_id": null,
+        "timestamp": "2023-12-18T04:08:01.993390",
+        "user_id": 1,
+        "username": "johndoe69"
+        }
 
 3.  Extension 3: Threaded Replies
 
@@ -212,17 +214,19 @@ Lets dive deep into each extension:
     This field takes a post_id as its value. This new post will be a repoly to the post whose id is mentioned here.
 
     Sample Request: This post is created as a reply to post with id 2.
-    {
-    "msg": "Hello, World!",
-    "replying_to_id": 2
-    }
+
+        {
+        "msg": "Hello, World!",
+        "replying_to_id": 2
+        }
 
     Sample Response: A new post with id '4' is created.
-    {
-    "id": 4,
-    "key": "6sRCEDHfy3NRb3IwQ5zX7w",
-    "timestamp": "2023-12-18T04:30:43.483238"
-    }
+
+        {
+        "id": 4,
+        "key": "6sRCEDHfy3NRb3IwQ5zX7w",
+        "timestamp": "2023-12-18T04:30:43.483238"
+        }
 
     2. Modified Endpoint: Get /post/<int:id>
 
