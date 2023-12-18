@@ -76,17 +76,17 @@ Lets dive deep into each extension:
 
     Sample body:
 
-    {
-    "username": "johndoe69",
-    "real_name": "John Doe"
-    }
+        {
+        "username": "johndoe69",
+        "real_name": "John Doe"
+        }
 
     Sample response: JSON Object with key (i.e., user's key) and user_id
 
-    {
-    "key": "\_9z97HfMtzFNPn37hBDmmA",
-    "user_id": 1
-    }
+        {
+        "key": "\_9z97HfMtzFNPn37hBDmmA",
+        "user_id": 1
+        }
 
     2. Modified Endpoint: Post /post
 
@@ -94,19 +94,19 @@ Lets dive deep into each extension:
 
     Sample body:
 
-    {
-    "msg": "Hello, World!",
-    "user_key": "{{user1secretKey}}",
-    "user_id": {{user1_id}}
-    }
+        {
+        "msg": "Hello, World!",
+        "user_key": "{{user1secretKey}}",
+        "user_id": {{user1_id}}
+        }
 
     Sample Response: JSON returns posts' info
 
-    {
-    "id": 1,
-    "key": "QGZ3ZfLt60uDdwUO6vfsVA",
-    "timestamp": "2023-12-18T03:35:33.741230"
-    }
+        {
+        "id": 1,
+        "key": "QGZ3ZfLt60uDdwUO6vfsVA",
+        "timestamp": "2023-12-18T03:35:33.741230"
+        }
 
     3. Modified Endpoint: Get /post/<int:id>
 
@@ -144,11 +144,11 @@ Lets dive deep into each extension:
 
     Sample Response:
 
-    {
-    "real_name": "",
-    "user_id": 0,
-    "username": ""
-    }
+        {
+        "real_name": "",
+        "user_id": 0,
+        "username": ""
+        }
 
     2. Notice Endpoint: POST /user
 
@@ -157,17 +157,17 @@ Lets dive deep into each extension:
 
     Sample body:
 
-    {
-    "username": "johndoe69",
-    "real_name": "John Doe"
-    }
+        {
+        "username": "johndoe69",
+        "real_name": "John Doe"
+        }
 
     Sample response: JSON Object with key (i.e., user's key) and user_id
 
-    {
-    "key": "\_9z97HfMtzFNPn37hBDmmA",
-    "user_id": 1
-    }
+        {
+        "key": "\_9z97HfMtzFNPn37hBDmmA",
+        "user_id": 1
+        }
 
     3. Created Endpoint: PUT /user/<int:user_id>
 
@@ -228,18 +228,18 @@ Lets dive deep into each extension:
 
     This is an endpoint to get a post using its id. Now with this extension it will return two extra fields:
 
-    1. replying_to_id - the id of the post it is replying to.
-    2. ids_of_replies - ids of all the posts that it has as its replies
+    1.  replying_to_id - the id of the post it is replying to.
+    2.  ids_of_replies - ids of all the posts that it has as its replies
 
-    {
-    "id": 4,
-    "ids_of_replies": [],
-    "msg": "Hello, World!",
-    "replying_to_id": 3,
-    "timestamp": "2023-12-18T04:30:43.483238",
-    "user_id": null,
-    "username": null
-    }
+            {
+            "id": 4,
+            "ids_of_replies": [],
+            "msg": "Hello, World!",
+            "replying_to_id": 3,
+            "timestamp": "2023-12-18T04:30:43.483238",
+            "user_id": null,
+            "username": null
+            }
 
 4.  Extension 4 : Data and Time based range queries
 
@@ -258,37 +258,37 @@ Lets dive deep into each extension:
 
     Example Response: It returns a list of all the posts within that date range. If the parameters are not given then it returns all the posts by default.
 
-    [
-    {
-    "id": 1,
-    "ids_of_replies": [],
-    "msg": "Hello, World!",
-    "replying_to_id": null,
-    "timestamp": "2023-12-18T03:35:33.741230",
-    "user_id": 1,
-    "username": "johndoe69"
-    },
-    {
-    "id": 2,
-    "ids_of_replies": [],
-    "msg": "Hello, World!",
-    "replying_to_id": null,
-    "timestamp": "2023-12-18T04:07:50.820516",
-    "user_id": 1,
-    "username": "johndoe69"
-    },
-    {
-    "id": 3,
-    "ids_of_replies": [
-    4
-    ],
-    "msg": "Hello, World!",
-    "replying_to_id": null,
-    "timestamp": "2023-12-18T04:08:01.993390",
-    "user_id": 1,
-    "username": "johndoe69"
-    }
-    ]
+        [
+        {
+        "id": 1,
+        "ids_of_replies": [],
+        "msg": "Hello, World!",
+        "replying_to_id": null,
+        "timestamp": "2023-12-18T03:35:33.741230",
+        "user_id": 1,
+        "username": "johndoe69"
+        },
+        {
+        "id": 2,
+        "ids_of_replies": [],
+        "msg": "Hello, World!",
+        "replying_to_id": null,
+        "timestamp": "2023-12-18T04:07:50.820516",
+        "user_id": 1,
+        "username": "johndoe69"
+        },
+        {
+        "id": 3,
+        "ids_of_replies": [
+        4
+        ],
+        "msg": "Hello, World!",
+        "replying_to_id": null,
+        "timestamp": "2023-12-18T04:08:01.993390",
+        "user_id": 1,
+        "username": "johndoe69"
+        }
+        ]
 
 5.  Extension 5: User Based range queries
 
@@ -303,37 +303,37 @@ Lets dive deep into each extension:
 
     Sample Response: It returns a list of all the posts that belong to user1:
 
-    [
-    {
-    "id": 1,
-    "ids_of_replies": [],
-    "msg": "Hello, World!",
-    "replying_to_id": null,
-    "timestamp": "2023-12-18T03:35:33.741230",
-    "user_id": 1,
-    "username": "johndoe69"
-    },
-    {
-    "id": 2,
-    "ids_of_replies": [],
-    "msg": "Hello, World!",
-    "replying_to_id": null,
-    "timestamp": "2023-12-18T04:07:50.820516",
-    "user_id": 1,
-    "username": "johndoe69"
-    },
-    {
-    "id": 3,
-    "ids_of_replies": [
-    4
-    ],
-    "msg": "Hello, World!",
-    "replying_to_id": null,
-    "timestamp": "2023-12-18T04:08:01.993390",
-    "user_id": 1,
-    "username": "johndoe69"
-    }
-    ]
+        [
+        {
+        "id": 1,
+        "ids_of_replies": [],
+        "msg": "Hello, World!",
+        "replying_to_id": null,
+        "timestamp": "2023-12-18T03:35:33.741230",
+        "user_id": 1,
+        "username": "johndoe69"
+        },
+        {
+        "id": 2,
+        "ids_of_replies": [],
+        "msg": "Hello, World!",
+        "replying_to_id": null,
+        "timestamp": "2023-12-18T04:07:50.820516",
+        "user_id": 1,
+        "username": "johndoe69"
+        },
+        {
+        "id": 3,
+        "ids_of_replies": [
+        4
+        ],
+        "msg": "Hello, World!",
+        "replying_to_id": null,
+        "timestamp": "2023-12-18T04:08:01.993390",
+        "user_id": 1,
+        "username": "johndoe69"
+        }
+        ]
 
 # Detailed summaries of your tests for each of your extensions, i.e., how to interpret your testing framework and the tests you’ve written
 
